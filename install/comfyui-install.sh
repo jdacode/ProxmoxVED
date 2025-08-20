@@ -55,7 +55,7 @@ PYTHON_VERSION="${python_version_uv}" setup_uv
 msg_ok "Setup uv"
 
 fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}" "${app_path}"
-fetch_and_deploy_gh_release "comfyui-manager" "Comfy-Org/ComfyUI-Manager" "tarball" "${comfyui_manager_version}" "${app_path}/custom_nodes"
+fetch_and_deploy_gh_release "comfyui-manager" "Comfy-Org/ComfyUI-Manager" "tarball" "${comfyui_manager_version}" "${app_path}/custom_nodes/comfyui-manager"
 
 # msg_info "Python dependencies"
 # $STD uv venv "${app_path}/venv"
