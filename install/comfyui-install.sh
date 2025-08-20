@@ -56,38 +56,38 @@ msg_ok "Setup uv"
 
 fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}" "${app_path}"
 
-# msg_info "Python dependencies"
-# $STD uv venv "${app_path}/venv"
-# gpu_type="${gpu_type,,}"
-# if [[ "$gpu_type" == "nvidia" ]]; then
-#   echo "NVIDIA GPU selected"
-#   $STD uv pip install \
-#       torch \
-#       torchvision \
-#       torchaudio \
-#       --extra-index-url "${comfyui_python_index_url_nvidia}" \
-#       --python="${python_path}"
-# elif [[ "$gpu_type" == "amd" ]]; then
-#   echo "AMD GPU selected"
-#   $STD uv pip install \
-#       torch \
-#       torchvision \
-#       torchaudio \
-#       --index-url "${comfyui_python_index_url_amd}" \
-#       --python="${python_path}"
-# elif [[ "$gpu_type" == "intel" ]]; then
-#   echo "Intel GPU selected"
-#   $STD uv pip install \
-#       torch \
-#       torchvision \
-#       torchaudio \
-#       --index-url "${comfyui_python_index_url_intel}" \
-#       --python="${python_path}"
-# else
-#   echo "No GPU selected"
-# fi
-# $STD uv pip install -r "${app_path}/requirements.txt" --python="${python_path}"
-# msg_ok "Python dependencies"
+msg_info "Python dependencies"
+$STD uv venv "${app_path}/venv"
+gpu_type="${gpu_type,,}"
+if [[ "$gpu_type" == "nvidia" ]]; then
+  echo "NVIDIA GPU selected"
+  $STD uv pip install \
+      torch \
+      torchvision \
+      torchaudio \
+      --extra-index-url "${comfyui_python_index_url_nvidia}" \
+      --python="${python_path}"
+elif [[ "$gpu_type" == "amd" ]]; then
+  echo "AMD GPU selected"
+  $STD uv pip install \
+      torch \
+      torchvision \
+      torchaudio \
+      --index-url "${comfyui_python_index_url_amd}" \
+      --python="${python_path}"
+elif [[ "$gpu_type" == "intel" ]]; then
+  echo "Intel GPU selected"
+  $STD uv pip install \
+      torch \
+      torchvision \
+      torchaudio \
+      --index-url "${comfyui_python_index_url_intel}" \
+      --python="${python_path}"
+else
+  echo "No GPU selected"
+fi
+$STD uv pip install -r "${app_path}/requirements.txt" --python="${python_path}"
+msg_ok "Python dependencies"
 
 if [[ "${comfyui_manager_enabled}" =~ ^[Yy]$ ]]; then
   msg_info "Install ${application_name} Manager"
@@ -96,7 +96,6 @@ if [[ "${comfyui_manager_enabled}" =~ ^[Yy]$ ]]; then
 else
   msg_error "No installed ${application_name} Manager"
 fi
-
 
 msg_info "Creating Service"
 cat <<EOF >/etc/systemd/system/"${application_name}".service
