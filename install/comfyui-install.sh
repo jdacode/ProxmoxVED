@@ -91,7 +91,9 @@ msg_ok "Python dependencies"
 
 if [[ "${comfyui_manager_enabled}" =~ ^[Yy]$ ]]; then
   msg_info "Install ${application_name} Manager"
-  git clone https://github.com/ltdrdata/ComfyUI-Manager "${app_path}/custom_nodes/comfyui-manager"
+  comfyui_manager_dir="${app_path}/custom_nodes/comfyui-manager"
+  git clone https://github.com/ltdrdata/ComfyUI-Manager "${comfyui_manager_dir}"
+  $STD uv pip install -r "${comfyui_manager_dir}/requirements.txt" --python="${python_path}"
   msg_ok "Installed ${application_name} Manager"
 else
   msg_error "No installed ${application_name} Manager"
