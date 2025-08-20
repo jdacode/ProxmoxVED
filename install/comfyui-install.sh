@@ -54,7 +54,8 @@ msg_info "Setup uv"
 PYTHON_VERSION="${python_version_uv}" setup_uv
 msg_ok "Setup uv"
 
-fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}"
+fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}" "${app_path}"
+fetch_and_deploy_gh_release "comfyui-manager" "Comfy-Org/ComfyUI-Manager" "tarball" "${comfyui_manager_version}" "${app_path}/custom_nodes"
 
 # msg_info "Python dependencies"
 # $STD uv venv "${app_path}/venv"
@@ -118,30 +119,29 @@ fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarb
 # fi
 
 
-# msg_info "Creating Service"
-# cat <<EOF >/etc/systemd/system/"${application_name}".service
-# [Unit]
-# Description=${application_name} Service
-# After=network.target
+msg_info "Creating Service"
+cat <<EOF >/etc/systemd/system/"${application_name}".service
+[Unit]
+Description=${application_name} Service
+After=network.target
 
-# [Service]
-# Type=simple
-# User=root
-# WorkingDirectory=${app_path}
-# ExecStart=${python_path} ${app_path}/main.py ${comfyui_python_net_args} ${comfyui_python_port_args} ${comfyui_python_args}
-# Restart=on-failure
+[Service]
+Type=simple
+User=root
+WorkingDirectory=${app_path}
+ExecStart=${python_path} ${app_path}/main.py ${comfyui_python_net_args} ${comfyui_python_port_args} ${comfyui_python_args}
+Restart=on-failure
 
-# [Install]
-# WantedBy=multi-user.target
-# EOF
-# systemctl enable -q --now "${application_name}"
-# msg_ok "Created Service"
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable -q --now "${application_name}"
+msg_ok "Created Service"
 
 motd_ssh
 customize
 
 msg_info "Cleaning up"
-rm -f "${application_name}".zip
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
