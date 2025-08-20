@@ -55,7 +55,6 @@ PYTHON_VERSION="${python_version_uv}" setup_uv
 msg_ok "Setup uv"
 
 fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}" "${app_path}"
-fetch_and_deploy_gh_release "comfyui-manager" "Comfy-Org/ComfyUI-Manager" "tarball" "${comfyui_manager_version}" "${app_path}/custom_nodes/comfyui-manager"
 
 # msg_info "Python dependencies"
 # $STD uv venv "${app_path}/venv"
@@ -90,33 +89,13 @@ fetch_and_deploy_gh_release "comfyui-manager" "Comfy-Org/ComfyUI-Manager" "tarba
 # $STD uv pip install -r "${app_path}/requirements.txt" --python="${python_path}"
 # msg_ok "Python dependencies"
 
-# if [[ "${comfyui_manager_enabled}" =~ ^[Yy]$ ]]; then
-#   msg_info "Install ${application_name} Manager"
-#   custom_nodes_dir="${app_path}/custom_nodes"
-#   comfyui_manager_dir="${custom_nodes_dir}/comfyui-manager"
-
-#   if [[ ! -d "${custom_nodes_dir}" ]]; then
-#     echo "${TAB3}${TAB3}${TAB3}Error: Directory not found: ${custom_nodes_dir}"
-#     return 1
-#   fi
-
-#   if [[ -d "${comfyui_manager_dir}" ]]; then
-#     echo "${TAB3}${TAB3}${TAB3}ComfyUI-Manager already exists. Skipping installation."
-#   else
-#     if [[ "${comfyui_manager_version}" == "latest" ]]; then
-#       git clone https://github.com/ltdrdata/ComfyUI-Manager "${comfyui_manager_dir}"
-#     else
-#       curl -fsSL -o "${comfyui_manager_version}.zip" "https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${comfyui_manager_version}.zip"
-#       unzip -q "${comfyui_manager_version}.zip"
-#       mv "ComfyUI-Manager-${comfyui_manager_version}" "${comfyui_manager_dir}"
-#       rm -f "${comfyui_manager_version}.zip"
-#     fi
-#     $STD uv pip install -r "${comfyui_manager_dir}/requirements.txt" --python="${python_path}"
-#   fi
-#   msg_ok "Installed ${application_name} Manager"
-# else
-#   msg_error "No installed ${application_name} Manager"
-# fi
+if [[ "${comfyui_manager_enabled}" =~ ^[Yy]$ ]]; then
+  msg_info "Install ${application_name} Manager"
+  git clone https://github.com/ltdrdata/ComfyUI-Manager "${app_path}/custom_nodes/comfyui-manager"
+  msg_ok "Installed ${application_name} Manager"
+else
+  msg_error "No installed ${application_name} Manager"
+fi
 
 
 msg_info "Creating Service"
