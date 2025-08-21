@@ -58,7 +58,7 @@ if ! [[ "${comfyui_skip_user_config,,}" =~ ^(y|yes)$ ]]; then
   echo "${TAB3}${TAB3}Enter additional ComfyUI python args: "
   echo "${TAB3}${TAB3}------------------------------------"
   echo
-  echo "${TAB3}${TAB3}Current ExecStart command: main.py --listen --port ${comfyui_port_arg} ${comfyui_python_args}"
+  echo "${TAB3}${TAB3}Default ExecStart command: main.py --listen --port ${comfyui_port_arg} ${comfyui_python_args}"
   echo "${TAB3}${TAB3}This only modifies the part after the arrow: main.py --listen --port ${comfyui_port_arg}  ===>  ${comfyui_python_args}"
   echo
   read -re -i "${comfyui_python_args}" -p "${TAB3}${TAB3}${TAB3}main.py --listen --port ${comfyui_port_arg}  ===>  " comfyui_python_args
