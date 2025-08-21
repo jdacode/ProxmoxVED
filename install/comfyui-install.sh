@@ -55,8 +55,12 @@ if ! [[ "${skip_user_config,,}" =~ ^(y|yes)$ ]]; then
 
   echo
   echo
-  echo "${TAB3}${TAB3}Current ExecStart command  : --listen --port ${port_arg} ===> ${comfyui_python_args}"
-  read -re -i "${comfyui_python_args}" -p "${TAB3}${TAB3}${TAB3}Enter additional ComfyUI python args: ===> " comfyui_python_args
+  echo "${TAB3}${TAB3}Enter additional ComfyUI python args: "
+  echo "${TAB3}${TAB3}-------------------------------"
+  echo
+  echo "${TAB3}${TAB3}Current ExecStart command: main.py --listen --port ${port_arg} ===> ${comfyui_python_args}"
+  echo
+  read -re -i "${comfyui_python_args}" -p "${TAB3}${TAB3}${TAB3}main.py --listen --port ${port_arg} ===>  " comfyui_python_args
 
   echo
   echo
@@ -76,7 +80,7 @@ echo -e "${CM}${BOLD}${DGN}ComfyUI python args        : ${BGN}${comfyui_python_a
 echo -e "${CM}${BOLD}${DGN}Pip Nvidia index-url       : ${BGN}${comfyui_python_index_url_nvidia}${CL}"
 echo -e "${CM}${BOLD}${DGN}Pip AMD index-url          : ${BGN}${comfyui_python_index_url_amd}${CL}"
 echo -e "${CM}${BOLD}${DGN}Pip Intel index-url        : ${BGN}${comfyui_python_index_url_intel}${CL}"
-echo -e "${CM}${BOLD}${DGN}Preview ExecStart command  : ${BGN}main.py ${comfyui_python_net_args} ${comfyui_python_port_args} ${comfyui_python_args}${CL}"
+echo -e "${CM}${BOLD}${DGN}Preview ExecStart command  : ${BGN}main.py --listen --port ${port_arg} ${comfyui_python_args}${CL}"
 
 msg_info "Setup uv"
 PYTHON_VERSION="${python_version_uv}" setup_uv
