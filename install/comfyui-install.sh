@@ -66,6 +66,8 @@ if ! [[ "${skip_user_config,,}" =~ ^(y|yes)$ ]]; then
   echo
   read -rp "${TAB3}${TAB3}Enable ComfyUI-Manager? [Y/n]: " comfyui_manager_enabled
   comfyui_manager_enabled=${comfyui_manager_enabled:-y}
+  echo
+  echo
 fi
 
 echo -e "${CM}${BOLD}${DGN}Application name           : ${BGN}${application_name}${CL}"
