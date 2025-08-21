@@ -23,7 +23,6 @@ application_name="${APPLICATION}"
 app_path="/opt/${application_name}"
 python_path="${app_path}/venv/bin/python"
 skip_user_config="${skip_user_config:-N}"
-comfyui_version="${comfyui_version:-latest}"
 python_version_uv="${python_version_uv:-3.12}"
 port_arg="${port_arg:-8188}"
 comfyui_python_args="${comfyui_python_args:---cpu}"
@@ -75,7 +74,7 @@ fi
 
 echo -e "${CM}${BOLD}${DGN}Application name           : ${BGN}${application_name}${CL}"
 echo -e "${CM}${BOLD}${DGN}Application path           : ${BGN}${app_path}${CL}"
-echo -e "${CM}${BOLD}${DGN}ComfyUI version            : ${BGN}${comfyui_version}${CL}"
+echo -e "${CM}${BOLD}${DGN}Skip User Config           : ${BGN}${skip_user_config}${CL}"
 echo -e "${CM}${BOLD}${DGN}GPU                        : ${BGN}${gpu_type}${CL}"
 echo -e "${CM}${BOLD}${DGN}Port                       : ${BGN}${port_arg}${CL}"
 echo -e "${CM}${BOLD}${DGN}ComfyUI Manager            : ${BGN}${comfyui_manager_enabled}${CL}"
@@ -91,7 +90,7 @@ msg_info "Setup uv"
 PYTHON_VERSION="${python_version_uv}" setup_uv
 msg_ok "Setup uv"
 
-fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "${comfyui_version}" "${app_path}"
+fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarball" "latest" "${app_path}"
 
 msg_info "Python dependencies"
 $STD uv venv "${app_path}/venv"
