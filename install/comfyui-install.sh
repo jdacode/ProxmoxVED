@@ -76,35 +76,35 @@ fetch_and_deploy_gh_release "${application_name}" "comfyanonymous/ComfyUI" "tarb
 
 msg_info "Python dependencies"
 $STD uv venv "${comfyui_path}/venv"
-if [[ "${comfyui_gpu_type,,}" == "nvidia" ]]; then
-  echo "NVIDIA GPU selected"
-  $STD uv pip install \
-      torch \
-      torchvision \
-      torchaudio \
-      --extra-index-url "${comfyui_index_url_nvidia}" \
-      --python="${comfyui_python_path}"
-elif [[ "${comfyui_gpu_type,,}" == "amd" ]]; then
-  echo "AMD GPU selected"
-  $STD uv pip install \
-      torch \
-      torchvision \
-      torchaudio \
-      --index-url "${comfyui_index_url_amd}" \
-      --python="${comfyui_python_path}"
-elif [[ "${comfyui_gpu_type,,}" == "intel" ]]; then
-  echo "Intel GPU selected"
-  $STD uv pip install \
-      torch \
-      torchvision \
-      torchaudio \
-      --index-url "${comfyui_index_url_intel}" \
-      --python="${comfyui_python_path}"
-else
-  echo "No GPU selected"
-fi
-$STD uv pip install -r "${comfyui_path}/requirements.txt" --python="${comfyui_python_path}"
-msg_ok "Python dependencies"
+# if [[ "${comfyui_gpu_type,,}" == "nvidia" ]]; then
+#   echo "NVIDIA GPU selected"
+#   $STD uv pip install \
+#       torch \
+#       torchvision \
+#       torchaudio \
+#       --extra-index-url "${comfyui_index_url_nvidia}" \
+#       --python="${comfyui_python_path}"
+# elif [[ "${comfyui_gpu_type,,}" == "amd" ]]; then
+#   echo "AMD GPU selected"
+#   $STD uv pip install \
+#       torch \
+#       torchvision \
+#       torchaudio \
+#       --index-url "${comfyui_index_url_amd}" \
+#       --python="${comfyui_python_path}"
+# elif [[ "${comfyui_gpu_type,,}" == "intel" ]]; then
+#   echo "Intel GPU selected"
+#   $STD uv pip install \
+#       torch \
+#       torchvision \
+#       torchaudio \
+#       --index-url "${comfyui_index_url_intel}" \
+#       --python="${comfyui_python_path}"
+# else
+#   echo "No GPU selected"
+# fi
+# $STD uv pip install -r "${comfyui_path}/requirements.txt" --python="${comfyui_python_path}"
+# msg_ok "Python dependencies"
 
 if [[ "${comfyui_manager_enabled,,}" =~ ^(y|yes)$ ]]; then
   msg_info "Install ${application_name} Manager"
