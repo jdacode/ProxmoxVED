@@ -63,7 +63,7 @@ curl -fsSL -o "comfymanager.tar.gz" "https://github.com/Comfy-Org/ComfyUI-Manage
 tar -xzf "comfymanager.tar.gz"
 mv "ComfyUI-Manager-3.35" "/opt/ComfyUI/custom_nodes/comfyui-manager"
 rm -f "comfymanager.tar.gz"
-$STD uv pip install -r "/opt/ComfyUI/custom_nodes/comfyui-manage/requirements.txt" --python="/opt/ComfyUI/venv/bin/python"
+$STD uv pip install -r "/opt/ComfyUI/custom_nodes/comfyui-manager/requirements.txt" --python="/opt/ComfyUI/venv/bin/python"
 msg_ok "Installed ComfyUI Manager"
 
 msg_info "Creating Service"
